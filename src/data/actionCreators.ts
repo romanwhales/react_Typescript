@@ -7,6 +7,7 @@ export const addProduct = (...products: Product[]):AddProductsAction =>({
 })
 
 export const modifyOrder = (product: Product,quantity:number): ModifyOrderAction =>({
+    
     type: Actions.MODIFY_ORDER,
     payload:{
         product,quantity

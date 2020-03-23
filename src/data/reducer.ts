@@ -6,11 +6,15 @@ export const StoreReducer: Reducer<StoreData,StoreAction> = (data: StoreData | u
     data = data || {products:[],order: new Order()}
     switch(action.type){
         case Actions.ADD_PRODUCTS:
+            if(data.products.length >= 9){
+                return {...data, products: [...data.products]}
+            }
             return {
                 ...data,
                 products: [...data.products,...action.payload]
             }
         case Actions.MODIFY_ORDER:
+            debugger;
             data.order.addProduct(action.payload.product,action.payload.quantity)
             return {...data}
         case Actions.RESET_ORDER:

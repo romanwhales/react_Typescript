@@ -17,6 +17,7 @@ export interface AddProductsAction extends Action<Actions.ADD_PRODUCTS>{
 }
 
 export interface ModifyOrderAction extends Action<Actions.MODIFY_ORDER>{
+    
     payload: {
         product: Product,
         quantity: number

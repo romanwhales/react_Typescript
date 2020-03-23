@@ -6,6 +6,9 @@ import {Provider} from "react-redux";
 import {httpHandler} from "./data/httpHandler";
 import {addProduct} from "./data/actionCreators";
 import {ConnectedProductList} from "./data/productListConnector";
+import {Switch,Route,Redirect,BrowserRouter,RouteComponentProps} from "react-router-dom";
+import {OrderDetails} from "./orderDetails";
+import {Summary} from "./summary";
 
 // let testData: Product[] = [1,2,3,4,5].map(num => ({id: num, name: `Prod${num}`,category: `Cat${num%2}`,description: `Product ${num}`,price: 100}))
 
@@ -45,12 +48,26 @@ export default class App extends Component<Props>{
   render = () => 
     <div className="App">
       <Provider store={dataStore}>
-        <ConnectedProductList/>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/products" component={ConnectedProductList}/>
+            <Route path="/order" render={(props)=><OrderDetails {...props} submitCallback={() => this.submitCallback(props)}/>}/>
+            <Route path="/summary/:id" component={Summary}/>
+            <Redirect to="/products"/>
+          </Switch>
+        </BrowserRouter>
+        {/* <ConnectedProductList/> */}
       </Provider>
     </div>
-  submitCallback= () => {
-    console.log("Submit Order")
+  submitCallback= (routeProps: RouteComponentProps) => {
+    
+    this.httpHandler.storeOrder(dataStore.getState().order,id => routeProps.history.push(`/summary/${id}`))
   }
+  // addToOrder = (product: Product,quantity:number) => {
+  //   this.setState(state => {state.order.addProduct(product,quantity);
+  //   return state})
+  // }
+ 
   
 }
 

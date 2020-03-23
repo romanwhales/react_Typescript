@@ -6,13 +6,15 @@ const hostname = "localhost";
 const port = 4600;
 
 const urls = {
-    products: `${protocol}://${hostname}:${port}/products`,
-    orders: `${protocol}://${hostname}:${port}/orders`
+    // products: `${protocol}://${hostname}:${port}/products`,
+    // orders: `${protocol}://${hostname}:${port}/orders`
+    products:"/api/products",
+    orders: "/api/orders"
 }
 
 export class httpHandler{
     loadProducts(callback: (products: Product[]) => void):void{
-        Axios.get(urls.products).then(response => callback(response.data));
+        Axios.get(urls.products).then(response => {callback(response.data)});
     }
 
     storeOrder(order:Order,callback: (id:number) => void):void{

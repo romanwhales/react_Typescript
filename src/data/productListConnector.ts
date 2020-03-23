@@ -5,6 +5,7 @@ import {ProductList} from "../productList";
 
 
 const mapStateToProps = (data: StoreData) => ({
+    
     products: data.products,
     categories: [...new Set(data.products.map(p => p.category))],
     order: data.order
